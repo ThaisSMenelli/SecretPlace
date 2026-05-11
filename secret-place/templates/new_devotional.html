@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>{{ devotional.id if devotional else 'Create New Devotional' }}</h2>
+
+<form method="POST">
+
+    <!-- Title -->
+    <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" name="title" id="title"
+               value="{{ devotional.title if devotional else '' }}" required>
+    </div>
+
+    <!-- Content -->
+    <div class="mb-3">
+        <label for="content" class="form-label">Content</label>
+        <textarea class="form-control" name="content" id="content" rows="6" required>{{ devotional.content if devotional else '' }}</textarea>
+    </div>
+
+    <!-- Group selection (only if admin) -->
+    {% if session.get('user_role') in ['admin', 'leader'] %}
+    <div class="mb-3">
+        <label for="group_id" class="form-label">Group (optional)</label>
+        <select class="form-select" name="group_id" id="group_id">
+            <option value="">Global Devotional</option>
+            {% for g in groups %}
+                <option value="{{ g[0] }}" {% if devotional and devotional.group_id == g[0] %}selected{% endif %}>{{ g[1] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    {% endif %}
+
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-success">
+        {% if devotional %}Save Changes{% else %}Create Devotional{% endif %}
+    </button>
+</form>
+{% endblock %}
