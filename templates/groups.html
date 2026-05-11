@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Groups</h1>
+
+{% if can_create %}
+    <a href="{{ url_for('groups.create_group') }}" class="btn btn-primary mb-3">Create New Group</a>
+{% endif %}
+
+<ul>
+{% for g in groups %}
+    <li>
+        <strong>{{ g[1] }}</strong> - {{ g[2] }} <br>
+        Leader: {{ g[3] }} <br>
+
+        {% if session.get("user_role") == "admin" %}
+            <a href="{{ url_for('groups.group_detail', group_id=g[0]) }}" class="btn btn-primary mb-3"> View Group Details</a>
+
+            <a href="{{ url_for('groups.manage_group_members', group_id=g[0]) }}" class="btn btn-secondary mb-3">Manage Members</a>
+
+        {% elif g[0] in user_group_ids %}
+            <a href="{{ url_for('groups.group_detail', group_id=g[0]) }}" class="btn btn-primary mb-3">View Group Details</a>
+            (Already joined)
+
+        {% else %}
+            <a href="{{ url_for('groups.join_group', group_id=g[0]) }}" class="btn btn-primary mb-3">Join </a>
+        {% endif %}
+
+    </li>
+{% endfor %}
+</ul>
+
+
+{% endblock %}

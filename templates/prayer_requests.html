@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>Prayer Board</h1>
+
+<!-- Create request -->
+<a href="{{ url_for('prayer_requests.create_request') }}" class="button">New Request</a>
+
+<hr>
+
+<h2>All Prayer Requests</h2>
+
+<ul>
+  {% for p in requests %}
+    <li>
+        <p>{{ p.text }}</p>
+        <small>{{ p.date }}</small>
+    </li>
+  {% else %}
+    <li>No prayer requests yet.</li>
+  {% endfor %}
+</ul>
+
+<div style="margin-top:20px;">
+
+    {% if page > 1 %}
+        <a class="btn btn-secondary"
+           href="{{ url_for('prayer_requests.list_requests', page=page-1) }}">
+            Previous
+        </a>
+    {% endif %}
+
+    <span style="margin:0 10px;">
+        Page {{ page }} of {{ total_pages }}
+    </span>
+
+    {% if page < total_pages %}
+        <a class="btn btn-secondary"
+           href="{{ url_for('prayer_requests.list_requests', page=page+1) }}">
+            Next
+        </a>
+    {% endif %}
+
+</div>
+
+{% endblock %}

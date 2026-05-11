@@ -1,0 +1,194 @@
+{% extends "layout.html" %}
+{% block content %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="mb-3">
+      {% for category, message in messages %}
+        <p class="flash-{{ 'success' if category=='success' else 'error' }}">
+          {{ message }}
+        </p>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+
+<h1>Welcome, {{ user.full_name }} </h1>
+
+<p>Your email: {{ user.email }}</p>
+<p>Your role: {{ user.role }}</p>
+
+{% if user.role == "admin" %}
+<h2>User Management</h2>
+
+<div class="card mb-4">
+    <p>Manage registered users and assign system roles.</p>
+</div>
+
+<a href="{{ url_for('admin.admin_users') }}" class="btn btn-primary mb-3">
+    Manage Users
+</a>
+{% endif %}
+
+<h2>Your Groups</h2>
+
+{% if user_groups %}
+    <div class="card mb-4">
+        <ul class="group-list">
+        {% for g in user_groups %}
+            <li class="group-list-item">
+                <div>
+                    <strong>{{ g[1] }}</strong> - {{ g[2] }}
+                </div>
+
+                {% if user.role == "admin" or user.role == "leader" %}
+                    <a href="{{ url_for('groups.manage_group_members', group_id=g[0]) }}"
+                       class="btn btn-primary">
+                        Manage Members
+                    </a>
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+{% else %}
+    <p>You are not part of any groups yet.</p>
+{% endif %}
+
+<div class="d-flex gap-2 mb-3">
+    {% if can_create %}
+        <a href="{{ url_for('groups.create_group') }}" class="btn btn-primary">
+            + Create New Group
+        </a>
+    {% endif %}
+
+    <a href="{{ url_for('groups.list_groups') }}" class="btn btn-secondary">
+        View All Groups
+    </a>
+</div>
+
+
+{% if user.role == "admin" %}
+<h2>Group Management</h2>
+
+<div class="card mb-4">
+    <p>As an admin, you can manage members in any group.</p>
+</div>
+
+<a href="{{ url_for('groups.list_groups') }}" class="btn btn-primary mb-3">
+    Manage All Groups
+</a>
+{% endif %}
+
+
+<h2>Devotionals</h2>
+
+{% if latest_devotional %}
+<div class="card devotional-card">
+    <h3>{{ latest_devotional.title }}</h3>
+
+    <small>
+        By {{ latest_devotional.author_name }} |
+        {{ latest_devotional.created_at }}
+    </small>
+
+    <p>{{ latest_devotional.content[:150] }}...</p>
+
+    <div class="btn-group">
+        <a href="{{ url_for('devotionals.devotional_detail', id=latest_devotional.id) }}"
+           class="btn btn-primary">
+            Read
+        </a>
+    </div>
+</div>
+{% else %}
+<p>No devotionals available yet.</p>
+{% endif %}
+
+<div class="d-flex gap-2 mb-3">
+    {% if user.role == "admin" or user.role == "leader" %}
+        <a href="{{ url_for('devotionals.create_devotional') }}" class="btn btn-primary">
+            + Create Devotional
+        </a>
+    {% endif %}
+
+    <a href="{{ url_for('devotionals.list_devotionals') }}" class="btn btn-secondary">
+        View All Devotionals
+    </a>
+</div>
+
+
+<h2>Upcoming Gatherings</h2>
+
+{% if upcoming_gatherings %}
+<div class="card mb-4">
+    <ul>
+        {% for g in upcoming_gatherings %}
+        <li>
+            <strong>{{ g[1] }}</strong><br>
+            <small>{{ g[2] }} at {{ g[3] }}</small>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% else %}
+<p>No upcoming gatherings.</p>
+{% endif %}
+
+<div class="d-flex gap-2 mb-3">
+    {% if user.role == "admin" or user.role == "leader" %}
+        <a href="{{ url_for('gatherings.create_gathering') }}" class="btn btn-primary">
+            + Schedule Gathering
+        </a>
+    {% endif %}
+
+    <a href="{{ url_for('gatherings.list_gatherings') }}" class="btn btn-secondary">
+        View All Gatherings
+    </a>
+</div>
+
+
+<h2>Recent Prayer Requests</h2>
+
+{% if recent_requests %}
+<div class="card mb-4">
+    <ul>
+        {% for r in recent_requests %}
+        <li>
+            {{ r[1][:80] }}{% if r[1]|length > 80 %}...{% endif %}<br>
+            <small>{{ r[2] }}</small>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% else %}
+<p>No prayer requests yet.</p>
+{% endif %}
+
+<div class="d-flex gap-2 mb-3">
+    {% if user.role == "admin" or user.role == "leader" %}
+        <a href="{{ url_for('prayer_requests.pending_requests') }}" class="btn btn-primary">
+            Prayer Moderation
+        </a>
+    {% endif %}
+
+    <a href="{{ url_for('prayer_requests.list_requests') }}" class="btn btn-secondary">
+        View All Prayer Requests
+    </a>
+</div>
+
+
+{% if user.role == "admin" or user.role == "leader" %}
+<h2>Discussion Moderation</h2>
+
+<div class="card mb-4">
+    <p>Review and manage pending discussion threads.</p>
+</div>
+
+<a href="{{ url_for('discussions.pending_threads') }}" class="btn btn-primary mb-3">
+    Threads Moderation
+</a>
+{% endif %}
+
+{% endblock %}

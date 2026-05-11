@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>Discussions</h1>
+
+<a href="{{ url_for('discussions.create_new_thread') }}" class="button">New Thread</a>
+
+<ul>
+  {% for t in threads %}
+    <li>
+      <a href="{{ url_for('discussions.thread_detail', thread_id=t.id) }}">
+        {{ t.title }}
+      </a>
+      <br>
+      <small>By {{ t.author_name }} | {{ t.created_at }}</small>
+      <p></p>
+      {% if session.get('user_role') in ['admin', 'leader'] %}
+      <form id="delete-thread-{{ t.id }}"
+          method="POST"
+          action="{{ url_for('discussions.delete_thread_route', thread_id=t.id) }}">
+
+        <button type="button" data-confirm="Delete this thread?" data-form="delete-thread-{{ t.id }}">Delete</button>
+
+</form>
+      {% endif %}
+    </li>
+  {% else %}
+    <li>No discussions yet.</li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

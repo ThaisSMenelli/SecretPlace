@@ -1,0 +1,475 @@
+/* =====================
+   GLOBAL
+===================== */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f5efe7; /* main background */
+    color: #6f5a4b; /* body text */
+    margin: 0;
+    padding: 0;
+}
+
+/* =====================
+   LAYOUT
+===================== */
+.container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* =====================
+   HEADER
+===================== */
+.main-header {
+    background-color: #5a3e2b;
+    padding: 15px 20px;
+    color: #f5efe7;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo {
+    height: 40px;
+}
+
+.app-title {
+    color: #6fa3c8 ;
+    margin: 0;
+    font-size: 1.6rem;
+}
+
+.main-nav {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.main-nav a {
+    color: #f5efe7;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.main-nav a:hover {
+    color: #6fa3c8; /* blue accent */
+}
+
+/* =====================
+   TYPOGRAPHY
+===================== */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    color: #5a3e2b;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+}
+
+h3 {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+}
+
+p {
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+section,
+h2 {
+    margin-top: 25px;
+}
+
+/* =====================
+   CARDS
+===================== */
+.card {
+    background-color: #e6d7c8;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #d2c2b2;
+}
+
+.card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+}
+
+.card-subtitle {
+    font-size: 0.85rem;
+    color: #8c7a6b;
+}
+
+/* =====================
+   DEVOTIONAL LIST
+===================== */
+.devotional-link {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: #5a3e2b;
+    text-decoration: none;
+}
+
+.devotional-link:hover {
+    text-decoration: underline;
+}
+
+.list-group-item {
+    background-color: #e6d7c8;
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 15px;
+    border: 1px solid #d2c2b2;
+    transition: all 0.2s ease;
+}
+
+.list-group-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.list-group-item h5 {
+    margin-bottom: 6px;
+}
+
+.list-group-item h5 a {
+    font-size: 1.35rem;
+    font-family: 'Playfair Display', serif;
+    color: #5a3e2b;
+    text-decoration: none;
+}
+
+.list-group-item h5 a:hover {
+    text-decoration: underline;
+}
+
+.list-group-item p:first-of-type {
+    font-size: 0.85rem;
+    color: #8c7a6b;
+    margin-bottom: 8px;
+}
+
+.list-group-item p:last-of-type {
+    font-size: 0.95rem;
+    color: #6f5a4b;
+}
+
+/* ===================
+    THREADS
+===================== */    
+.thread-title {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.thread-meta {
+    color: #6f5a4b;
+    font-size: 0.9rem;
+}
+
+.card form {
+    display: inline-block;
+}
+
+
+/* =====================
+   LINKS
+===================== */
+a {
+    color: #6fa3c8;
+}
+
+a:hover {
+    color: #4f8bb5;
+}
+
+/* =====================
+   BUTTONS
+===================== */
+button,
+.button,
+.btn {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    background-color: #6fa3c8; /* primary action */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 6px;
+    display: inline-block;
+    transition: all 0.2s ease;
+}
+
+button:hover,
+.button:hover,
+.btn:hover {
+    background-color: #4f8bb5;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.btn-danger {
+    background-color: #b8a4d4;
+}
+
+.btn-danger:hover {
+    background-color: #a990cb;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.action-buttons form {
+    margin: 0;
+}
+
+.action-buttons a {
+    text-decoration: none;
+}
+
+/* SUCCESS BUTTON */
+.btn-success {
+    background-color: #77ada3;
+}
+
+.btn-success:hover {
+    background-color: #5f948b;
+}
+
+/* SECONDARY BUTTON (soft) */
+.btn-soft {
+    background-color: #b8a4d4;
+}
+
+.btn-soft:hover {
+    background-color: #9e8ac2;
+}
+
+/* =====================
+   INPUTS
+===================== */
+input, textarea, select {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #d2c2b2;
+    background-color: white;
+}
+
+/* =====================
+   LISTS
+===================== */
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+ul li {
+    background-color: #e6d7c8;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #d2c2b2;
+}
+
+/* =====================
+   TAGS / BADGES
+===================== */
+.tag {
+    background-color: #b8a4d4;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+}
+
+/* =====================
+   ALERTS
+===================== */
+.flash-container {
+    max-width: 800px;
+    margin: 10px auto;
+}
+
+.flash {
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* SUCCESS */
+.flash.success {
+    background-color: #dff3ef;
+    color: #2f6f68;
+    border: 1px solid #77ada3;
+}
+
+/* ERROR */
+.flash.danger {
+    background-color: #fbeaea;
+    color: #c0392b;
+}
+
+/* INFO */
+.flash.info {
+    background-color: #e8f0fe;
+    color: #6fa3c8;
+}
+
+/* =====================
+   FOOTER
+===================== */
+.footer {
+    margin-top: 40px;
+    text-align: center;
+    padding: 15px;
+    background-color: #e6d7c8;
+    color: #5a3e2b;
+}
+
+
+/* =====================
+    MODAL BACKGROUND
+====================== */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+/* Hide by default */
+.hidden {
+    display: none;
+}
+
+/* Modal box */
+.modal-content {
+    background: #f5efe7;
+    padding: 25px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Buttons container */
+.modal-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Secondary button */
+.btn-secondary {
+    background-color: #6f5a4b;
+}
+
+.btn-secondary:hover {
+    background-color: #5a3e2b;
+}
+
+/* =====================
+   RESPONSIVE
+===================== */
+@media (max-width: 600px) {
+    .logo-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .main-nav {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+.group-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.group-list-item {
+    background: #f8f1ea;
+    border: 1px solid #d6c3b2;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+/* =====================
+   HOME
+===================== */
+
+.home-hero {
+    text-align: center;
+    max-width: 760px;
+    margin: 50px auto 70px auto;
+    padding: 30px 20px;
+}
+
+.home-hero h1 {
+    margin-bottom: 18px;
+}
+
+.home-hero .lead {
+    margin-bottom: 35px;
+    font-size: 1.15rem;
+}
+
+.home-logo {
+    width: 220px;
+    max-width: 80%;
+    display: block;
+    margin: 0 auto 35px auto;
+}
+
+.home-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 20px;
+}
