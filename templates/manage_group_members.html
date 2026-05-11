@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>Manage Members</h1>
+
+<div class="card mb-4">
+    <h3>{{ group[1] }}</h3>
+    <p>{{ group[2] }}</p>
+    <p><strong>Leader:</strong> {{ group[4] }}</p>
+</div>
+
+<h2>Current Members</h2>
+
+{% if members %}
+    <div class="card mb-4">
+        <ul>
+            {% for m in members %}
+                <li>
+                    {{ m[1] }}
+
+                    <form method="POST"
+                          action="{{ url_for('groups.remove_member_from_group', group_id=group[0], member_id=m[0]) }}"
+                          style="display:inline;">
+                        <button type="submit" class="btn btn-secondary">
+                            Remove
+                        </button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% else %}
+    <p>No members in this group yet.</p>
+{% endif %}
+
+<h2>Add Member</h2>
+
+<div class="card mb-4">
+    {% if available_users %}
+        <form method="POST" action="{{ url_for('groups.add_member_to_group', group_id=group[0]) }}">
+            <label for="user_id">Select User</label>
+
+            <select name="user_id" id="user_id" class="form-control" required>
+                <option value="">-- Select User --</option>
+
+                {% for u in available_users %}
+                    <option value="{{ u[0] }}">
+                        {{ u[1] }} - {{ u[2] }} ({{ u[3] }})
+                    </option>
+                {% endfor %}
+            </select>
+
+            <button type="submit" class="btn btn-primary mt-3">
+                + Add Member
+            </button>
+        </form>
+    {% else %}
+        <p>All users are already members of this group.</p>
+    {% endif %}
+</div>
+
+<a href="{{ url_for('groups.group_detail', group_id=group[0]) }}" class="btn btn-secondary">
+    Back to Group
+</a>
+
+{% endblock %}

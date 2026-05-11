@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Edit Gathering</h2>
+
+<form method="POST">
+
+    <label>Title</label>
+    <input type="text" name="title" value="{{ gathering.title }}" required>
+
+    <label>Description</label>
+    <textarea name="description" required>{{ gathering.description }}</textarea>
+
+    <label>Date</label>
+    <input type="date" name="date" value="{{ gathering.date }}" required>
+
+    <label>Time</label>
+    <input type="time" name="time" value="{{ gathering.time }}" required>
+
+    <label>Group (optional)</label>
+    <select name="group_id">
+        <option value="">Global Gathering</option>
+        {% for g in user_groups %}
+            <option value="{{ g[0] }}" {% if gathering.group_id == g[0] %}selected{% endif %}>
+                {{ g[1] }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Save Changes</button>
+</form>
+
+<br>
+
+<a href="{{ url_for('gatherings.list_gatherings') }}">← Back</a>
+
+{% endblock %}

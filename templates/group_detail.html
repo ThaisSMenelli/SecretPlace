@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>{{ group[1] }}</h2>
+<p>{{ group[2] }}</p>
+<p><strong>Leader:</strong> {{ group[3] }}</p>
+
+<hr>
+
+<h3>Members</h3>
+
+{% if members %}
+<ul>
+  {% for m in members %}
+    <li>{{ m[1] }}</li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No members yet.</p>
+{% endif %}
+
+
+<hr>
+
+<h3>Group Devotionals</h3>
+
+{% if devotionals %}
+  <ul>
+    {% for d in devotionals %}
+      <li>
+        <strong>
+          <a href="{{ url_for('devotionals.devotional_detail', id=d.id) }}" class="devotional-link">
+            {{ d.title }}
+          </a>
+        </strong><br>
+        <small>By {{ d.author_name or 'Unknown' }} | {{ d.created_at }}</small><br>
+        <p>{{ d.content[:120] }}{% if d.content|length > 120 %}...{% endif %}</p>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No devotionals for this group yet.</p>
+{% endif %}
+
+{% if can_manage_members %}
+    <a href="{{ url_for('groups.manage_group_members', group_id=group[0]) }}" class="btn btn-primary mb-3">Manage Members</a>
+{% endif %}
+
+<a href="{{ url_for('groups.list_groups') }}" class="btn btn-primary mb-3"> Back to Groups</a>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>Edit User</h1>
+
+<div class="card mb-4">
+
+    <form method="POST">
+
+        <label>Name</label>
+        <input type="text"
+               name="name"
+               class="form-control"
+               value="{{ user[1] }}"
+               required>
+
+        <label class="mt-3">Email</label>
+        <input type="email"
+               name="email"
+               class="form-control"
+               value="{{ user[2] }}"
+               required>
+
+        <label class="mt-3">Role</label>
+        <select name="role" class="form-control">
+            <option value="member" {% if user[3] == "member" %}selected{% endif %}>Member</option>
+            <option value="leader" {% if user[3] == "leader" %}selected{% endif %}>Leader</option>
+            <option value="admin" {% if user[3] == "admin" %}selected{% endif %}>Admin</option>
+        </select>
+
+        <button type="submit" class="btn btn-primary mt-4">
+            Save Changes
+        </button>
+
+    </form>
+</div>
+
+<a href="{{ url_for('admin.admin_users') }}" class="btn btn-secondary">
+    Back
+</a>
+
+{% endblock %}

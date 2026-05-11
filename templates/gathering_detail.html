@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>{{ gathering.title }}</h1>
+
+<p>{{ gathering.description }}</p>
+
+<hr>
+
+<p> Date: {{ gathering.date }}</p>
+<p> Time: {{ gathering.time }}</p>
+
+<a href="{{ url_for('gatherings.list_gatherings') }}">← Back</a>
+
+{% endblock %}
