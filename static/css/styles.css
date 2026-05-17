@@ -1,5 +1,6 @@
 /* =====================
-   GLOBAL
+   GLOBAL STYLES
+   Main page colours, font and default spacing
 ===================== */
 body {
     font-family: 'Inter', sans-serif;
@@ -10,7 +11,8 @@ body {
 }
 
 /* =====================
-   LAYOUT
+   PAGE LAYOUT
+   Main content container
 ===================== */
 .container {
     max-width: 900px;
@@ -20,6 +22,7 @@ body {
 
 /* =====================
    HEADER
+   Logo, title and navigation bar
 ===================== */
 .main-header {
     background-color: #5a3e2b;
@@ -41,7 +44,7 @@ body {
 }
 
 .app-title {
-    color: #6fa3c8 ;
+    color: #6fa3c8;
     margin: 0;
     font-size: 1.6rem;
 }
@@ -65,6 +68,7 @@ body {
 
 /* =====================
    TYPOGRAPHY
+   Headings and paragraph styling
 ===================== */
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
@@ -101,6 +105,7 @@ h2 {
 
 /* =====================
    CARDS
+   Reusable content blocks
 ===================== */
 .card {
     background-color: #e6d7c8;
@@ -122,6 +127,7 @@ h2 {
 
 /* =====================
    DEVOTIONAL LIST
+   Styling for devotional links and list items
 ===================== */
 .devotional-link {
     font-family: 'Playfair Display', serif;
@@ -174,9 +180,10 @@ h2 {
     color: #6f5a4b;
 }
 
-/* ===================
-    THREADS
-===================== */    
+/* =====================
+   DISCUSSION THREADS
+   Title and metadata styling
+===================== */
 .thread-title {
     font-size: 1.8rem;
     margin-bottom: 5px;
@@ -191,7 +198,6 @@ h2 {
     display: inline-block;
 }
 
-
 /* =====================
    LINKS
 ===================== */
@@ -205,6 +211,7 @@ a:hover {
 
 /* =====================
    BUTTONS
+   Main button styles used across the app
 ===================== */
 button,
 .button,
@@ -230,6 +237,7 @@ button:hover,
     transform: translateY(-1px);
 }
 
+/* Delete / danger style button */
 .btn-danger {
     background-color: #b8a4d4;
 }
@@ -238,6 +246,7 @@ button:hover,
     background-color: #a990cb;
 }
 
+/* Container for edit/delete action buttons */
 .action-buttons {
     display: flex;
     gap: 10px;
@@ -254,7 +263,7 @@ button:hover,
     text-decoration: none;
 }
 
-/* SUCCESS BUTTON */
+/* Success button */
 .btn-success {
     background-color: #77ada3;
 }
@@ -263,7 +272,7 @@ button:hover,
     background-color: #5f948b;
 }
 
-/* SECONDARY BUTTON (soft) */
+/* Soft secondary style button */
 .btn-soft {
     background-color: #b8a4d4;
 }
@@ -272,8 +281,18 @@ button:hover,
     background-color: #9e8ac2;
 }
 
+/* Secondary button */
+.btn-secondary {
+    background-color: #6f5a4b;
+}
+
+.btn-secondary:hover {
+    background-color: #5a3e2b;
+}
+
 /* =====================
-   INPUTS
+   FORM INPUTS
+   Text fields, textareas and dropdown menus
 ===================== */
 input, textarea, select {
     font-family: 'Inter', sans-serif;
@@ -288,6 +307,7 @@ input, textarea, select {
 
 /* =====================
    LISTS
+   Default list item styling
 ===================== */
 ul {
     list-style-type: none;
@@ -314,7 +334,7 @@ ul li {
 }
 
 /* =====================
-   ALERTS
+   ALERTS / FLASH MESSAGES
 ===================== */
 .flash-container {
     max-width: 800px;
@@ -328,20 +348,17 @@ ul li {
     font-weight: bold;
 }
 
-/* SUCCESS */
 .flash.success {
     background-color: #dff3ef;
     color: #2f6f68;
     border: 1px solid #77ada3;
 }
 
-/* ERROR */
 .flash.danger {
     background-color: #fbeaea;
     color: #c0392b;
 }
 
-/* INFO */
 .flash.info {
     background-color: #e8f0fe;
     color: #6fa3c8;
@@ -358,10 +375,10 @@ ul li {
     color: #5a3e2b;
 }
 
-
 /* =====================
-    MODAL BACKGROUND
-====================== */
+   MODAL
+   Used for confirmation and alert messages
+===================== */
 .modal {
     position: fixed;
     top: 0;
@@ -375,12 +392,12 @@ ul li {
     z-index: 999;
 }
 
-/* Hide by default */
+/* Hide modal by default */
 .hidden {
     display: none;
 }
 
-/* Modal box */
+/* Modal content box */
 .modal-content {
     background: #f5efe7;
     padding: 25px;
@@ -390,24 +407,16 @@ ul li {
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
-/* Buttons container */
+/* Modal buttons container */
 .modal-actions {
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
 }
 
-/* Secondary button */
-.btn-secondary {
-    background-color: #6f5a4b;
-}
-
-.btn-secondary:hover {
-    background-color: #5a3e2b;
-}
-
 /* =====================
-   RESPONSIVE
+   RESPONSIVE DESIGN
+   Adjusts layout for smaller screens
 ===================== */
 @media (max-width: 600px) {
     .logo-container {
@@ -421,6 +430,10 @@ ul li {
     }
 }
 
+/* =====================
+   GROUP LIST
+   Used for group cards inside dashboard/group pages
+===================== */
 .group-list {
     list-style: none;
     padding-left: 0;
@@ -441,9 +454,9 @@ ul li {
 }
 
 /* =====================
-   HOME
+   HOME PAGE
+   Landing page layout, logo and buttons
 ===================== */
-
 .home-hero {
     text-align: center;
     max-width: 760px;
@@ -472,4 +485,47 @@ ul li {
     justify-content: center;
     gap: 18px;
     margin-top: 20px;
+}
+
+/* =====================
+   MOBILE HAMBURGER MENU
+===================== */
+
+/* Hide hamburger on desktop */
+.menu-toggle {
+    display: none;
+}
+
+/* Mobile layout */
+@media (max-width: 768px) {
+
+    /* Show hamburger button */
+    .menu-toggle {
+        display: block;
+        background: none;
+        border: none;
+        color: #f5efe7;
+        font-size: 2rem;
+        cursor: pointer;
+        align-self: flex-start;
+        padding: 5px 0;
+    }
+
+    /* Hide navigation by default on mobile */
+    .main-nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+
+    /* Show navigation when active */
+    .main-nav.active {
+        display: flex;
+    }
+
+    /* Remove separators on mobile */
+    .main-nav a {
+        padding: 8px 0;
+    }
 }
