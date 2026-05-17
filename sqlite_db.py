@@ -458,6 +458,50 @@ def get_latest_devotional():
     conn.close()
     return devotional
 
+def get_latest_user_devotional(user_id):
+    """
+    Return the latest devotional available to a specific user.
+    """
+
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT group_id FROM group_members WHERE user_id = ?",
+        (user_id,)
+    )
+
+    user_group_ids = [row[0] for row in cursor.fetchall()]
+
+    placeholders = ",".join("?" for _ in user_group_ids) if user_group_ids else ""
+
+    query = f"""
+        SELECT
+            d.id,
+            d.title,
+            d.content,
+            d.created_by,
+            d.created_at,
+            u.name
+        FROM devotionals d
+        JOIN users u ON d.created_by = u.id
+        WHERE d.is_active = 1
+        AND (
+            d.group_id IS NULL
+            {f' OR d.group_id IN ({placeholders})' if placeholders else ''}
+        )
+        ORDER BY d.created_at DESC
+        LIMIT 1
+    """
+
+    cursor.execute(query, user_group_ids)
+
+    devotional = cursor.fetchone()
+
+    conn.close()
+
+    return devotional
+
 
 def get_devotionals_by_group(group_id):
     """
