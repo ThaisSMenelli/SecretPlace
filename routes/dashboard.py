@@ -66,8 +66,9 @@ def dashboard():
             "id": latest_devotional_row[0],
             "title": latest_devotional_row[1],
             "content": latest_devotional_row[2],
-            "author_name": latest_devotional_row[5],
-            "created_at": latest_devotional_row[4]
+            "created_by": latest_devotional_row[3],
+            "created_at": latest_devotional_row[4],
+            "author_name": latest_devotional_row[5]
         }
 
     # ---------------------------------------------------
