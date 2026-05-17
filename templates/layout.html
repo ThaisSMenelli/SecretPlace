@@ -1,106 +1,218 @@
 <!DOCTYPE html> 
 <html lang="en">
+
 <head>
+
+    <!-- Character encoding for the webpage -->
     <meta charset="UTF-8">
+
+    <!-- Browser tab title -->
     <title>Secret Place</title>
 
-    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
-    <!-- Google Font -->
+    <!-- Website favicon displayed in the browser tab -->
+    <link rel="icon"
+          href="{{ url_for('static', filename='images/favicon.ico') }}"
+          type="image/x-icon">
+
+    <!-- Google Font connection setup -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
-    <!-- Your CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- Imported Google fonts used across the application -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Main CSS stylesheet for the application -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/styles.css') }}">
+
 </head>
 
 <body>
 
-    <!--HEADER-->
+    <!-- HEADER -->
     <header class="main-header">
+
+        <!-- Logo and application title container -->
         <div class="logo-container">
-            <img src="{{ url_for('static', filename='images/logo_blue2.png') }}" alt="Secret Place Logo" class="logo">
+
+            <!-- Application logo -->
+            <img src="{{ url_for('static', filename='images/logo_blue2.png') }}"
+                 alt="Secret Place Logo"
+                 class="logo">
+
+            <!-- Application title -->
             <h1 class="app-title">Secret Place</h1>
+
         </div>
 
-            <nav class="main-nav">
-                {% if session.get('user_id') %}
-                    <a href="{{ url_for('dashboard.dashboard') }}">Dashboard</a> |
-                    {% if session.get("user_role") == "admin" %}
-                        <a href="{{ url_for('admin.admin_users') }}">Admin</a> |
-                    {% endif %}
-                    <a href="{{ url_for('groups.list_groups') }}">Groups</a> |
-                    <a href="{{ url_for('devotionals.list_devotionals') }}">Devotionals</a> |
-                    <a href="{{ url_for('bible.view_progress') }}">Bible Progress</a>  |
-                    <a href="{{ url_for('prayer_requests.list_requests') }}">Prayer Board</a> |
-                        {% if session.get('user_role') in ['admin', 'leader'] %}
-                            <a href="{{ url_for('prayer_requests.pending_requests') }}">Prayer Moderation</a>  |
-                        {% endif %}
-                    <a href="{{ url_for('gatherings.list_gatherings') }}">Gatherings</a> |
-                    <a href="{{ url_for('discussions.list_threads') }}">Discussions</a> |
-                        {% if session.get('user_role') in ['admin', 'leader'] %}
-                            <a href="{{ url_for('discussions.pending_threads') }}">Threads Moderation</a>  |
-                        {% endif %}
-                    <a href="{{ url_for('auth.logout') }}">Logout</a>
+        <!-- Hamburger button for mobile screens -->
+        <button class="menu-toggle" id="menuToggle">
+            ☰
+        </button>
 
-                {% else %}
-                    <a href="{{ url_for('auth.login') }}">Login</a>
-                    <a href="{{ url_for('auth.register') }}">Register</a>    
+        <!-- Main navigation menu -->
+        <nav class="main-nav" id="mainNav">
+
+            <!-- Navigation shown only when a user is logged in -->
+            {% if session.get('user_id') %}
+
+                <!-- Dashboard link -->
+                <a href="{{ url_for('dashboard.dashboard') }}">Dashboard</a> |
+
+                <!-- Admin link displayed only for admin users -->
+                {% if session.get("user_role") == "admin" %}
+                    <a href="{{ url_for('admin.admin_users') }}">Admin</a> |
                 {% endif %}
-            </nav>
+
+                <!-- Group management and group viewing link -->
+                <a href="{{ url_for('groups.list_groups') }}">Groups</a> |
+
+                <!-- Devotionals page link -->
+                <a href="{{ url_for('devotionals.list_devotionals') }}">Devotionals</a> |
+
+                <!-- Bible progress tracker link -->
+                <a href="{{ url_for('bible.view_progress') }}">Bible Progress</a>  |
+
+                <!-- Prayer request board link -->
+                <a href="{{ url_for('prayer_requests.list_requests') }}">Prayer Board</a> |
+
+                <!-- Prayer moderation link for admins and group leaders -->
+                {% if session.get('user_role') in ['admin', 'leader'] %}
+                    <a href="{{ url_for('prayer_requests.pending_requests') }}">Prayer Moderation</a>  |
+                {% endif %}
+
+                <!-- Gatherings page link -->
+                <a href="{{ url_for('gatherings.list_gatherings') }}">Gatherings</a> |
+
+                <!-- Discussions page link -->
+                <a href="{{ url_for('discussions.list_threads') }}">Discussions</a> |
+
+                <!-- Discussion moderation link for admins and group leaders -->
+                {% if session.get('user_role') in ['admin', 'leader'] %}
+                    <a href="{{ url_for('discussions.pending_threads') }}">Threads Moderation</a>  |
+                {% endif %}
+
+                <!-- Logout link ends the current user session -->
+                <a href="{{ url_for('auth.logout') }}">Logout</a>
+
+            <!-- Navigation shown when no user is logged in -->
+            {% else %}
+
+                <!-- Login page link -->
+                <a href="{{ url_for('auth.login') }}">Login</a>
+
+                <!-- Registration page link -->
+                <a href="{{ url_for('auth.register') }}">Register</a>    
+
+            {% endif %}
+
+        </nav>
+
     </header>
+
     <hr>
 
-    <!--MAIN-->
+    <!-- MAIN CONTENT AREA -->
     <main class="container">
 
-        <!-- Flash messages -->
+        <!-- Flash message data passed from Flask to JavaScript modals -->
         {% with messages = get_flashed_messages(with_categories=true) %}
+
+            <!-- Check if any flash messages exist -->
             {% if messages %}
+
+                <!-- Hidden data container read by JavaScript to display alert modal -->
                 <div id="flashData"
                     data-message="{{ messages[0][1] }}"
                     data-category="{{ messages[0][0] }}">
                 </div>
+
             {% endif %}
+
         {% endwith %}
 
+        <!-- Child templates insert their page-specific content here -->
         {% block content %}
         {% endblock %}
+
     </main>
 
     <!-- FOOTER -->
     <footer class="footer">
+
+        <!-- Copyright text -->
         <p>© 2026 Secret Place</p>
+
     </footer>
-    <!-- Confirmation Modal -->
-    <div id="confirmModal" class="modal hidden">
+
+    <!-- CONFIRMATION MODAL -->
+    <div id="confirmModal"
+         class="modal hidden">
+
         <div class="modal-content">
 
+            <!-- Confirmation modal title -->
             <h3>Confirm Action</h3>
+
+            <!-- Confirmation message dynamically updated by JavaScript -->
             <p id="modalMessage">Are you sure?</p>
 
+            <!-- Confirmation modal buttons -->
             <div class="modal-actions">
-                <button id="confirmYes" class="button btn-danger">Yes</button>
-                <button id="confirmNo" class="button btn-secondary">Cancel</button>
+
+                <!-- Confirms the selected action -->
+                <button id="confirmYes"
+                        class="button btn-danger">
+
+                    Yes
+
+                </button>
+
+                <!-- Cancels the selected action -->
+                <button id="confirmNo"
+                        class="button btn-secondary">
+
+                    Cancel
+
+                </button>
+
             </div>
 
         </div>
+
     </div>
 
-    <!-- Alert Modal -->
-    <div id="alertModal" class="modal hidden">
+    <!-- ALERT MODAL -->
+    <div id="alertModal"
+         class="modal hidden">
+
         <div class="modal-content">
 
+            <!-- Alert modal title -->
             <h3>Notice</h3>
+
+            <!-- Alert message dynamically updated by JavaScript -->
             <p id="alertMessage"></p>
 
+            <!-- Alert close button -->
             <div class="modal-actions">
-                <button id="alertOk" class="button btn-primary">OK</button>
+
+                <button id="alertOk"
+                        class="button btn-primary">
+
+                    OK
+
+                </button>
+
             </div>
 
         </div>
+
     </div>
 
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <!-- Main JavaScript file for alerts, confirmations, and front-end interactions -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
 </body>
 </html>
