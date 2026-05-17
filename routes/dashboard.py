@@ -57,6 +57,7 @@ def dashboard():
     # Get the most recent devotional available
     # ---------------------------------------------------
     latest_devotional_row = get_latest_user_devotional(user_id)
+    
 
     latest_devotional = None
 
